@@ -1,0 +1,6 @@
+torch
+opencv-python
+timm
+fairscale
+segment_anything
+matplotlib
