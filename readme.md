@@ -2,11 +2,11 @@
 
 ## SAM License
 
-SAM is licensed under the Apache 2.0 license (SAM_LICENSE)
+SAM is licensed under the Apache 2.0 license [Apache 2.0 license](SAM_LICENSE)
 
 ## SegGPT License
 
-SegGPT is licensed under the MIT license (SegGPT_LICENSE)
+SegGPT is licensed under the MIT license [MIT license](SegGPT_LICENSE)
 
 # Install from source
 
