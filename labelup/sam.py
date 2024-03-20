@@ -1,7 +1,9 @@
 from segment_anything import sam_model_registry, SamPredictor
+from .utils import download_sam_model, is_dir
 import torch
 import cv2
 import numpy as np
+import os
 
 
 class SAMInference:
@@ -15,7 +17,10 @@ class SAMInference:
 
 
     def prepare_predictor(self):
-        sam = sam_model_registry["vit_h"](self.model_ckpt)        # Note: YOU MUST HAVE THE MODEL SAVED IN THE SAME DIRECTORY AS YOUR BACKEND
+        if self.model_ckpt is None or is_dir(self.model_ckpt ):
+            self.model_ckpt = download_sam_model(self.model_ckpt)
+        sam = sam_model_registry["vit_h"](self.model_ckpt) 
+        
         sam.to(device=self.device)
 
         predictor = SamPredictor(sam)

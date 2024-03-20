@@ -13,6 +13,7 @@ from PIL import Image
 #from skimage.measure import shannon_entropy
 import cv2
 from typing import List, Tuple, Optional, Any, Union
+from .utils import download_seggpt_model, is_dir
 
 imagenet_mean = np.array([0.485, 0.456, 0.406])
 imagenet_std = np.array([0.229, 0.224, 0.225])
@@ -47,6 +48,8 @@ class SegGPTInference:
         Returns:
         torch.nn.Module: The prepared model.
         """
+        if self.ckpt_path is None or is_dir(self.ckpt_path):
+            self.ckpt_path = download_seggpt_model(self.ckpt_path)
         model = seggpt_vit_large_patch16_input896x448() #getattr(models_seggpt, self.model_name)()
         model.seg_type = self.seg_type
         checkpoint = torch.load(self.ckpt_path, map_location='cpu')

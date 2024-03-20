@@ -2,3 +2,4 @@ build/
 dist/
 labelup.egg-info/
 notebooks/tmp/
+labelup/__pycache__/

@@ -170,4 +170,43 @@ def mask_to_bbox(mask: np.ndarray) -> List[float]:
     #return all the bboxes
     return boxes
 
+sam_file_name = "sam_vit_h_4b8939.pth"
+seggpt_file_name = "seggpt_vit_large.pth"
 
+def download(url, pth):
+    import urllib.request
+    
+    if not os.path.exists(pth):
+        print(f"Downloading from {url} to {pth}")
+        urllib.request.urlretrieve(url,pth)
+        return True
+    return False
+    
+def download_sam_model(dir=None):
+    dir = create_cache(dir)
+    pth =  os.path.join(dir, sam_file_name)
+    download("https://huggingface.co/spaces/abhishek/StableSAM/resolve/main/sam_vit_h_4b8939.pth",pth)
+    return pth
+
+def download_seggpt_model(dir=None):
+    dir = create_cache(dir)
+    pth =  os.path.join(dir, seggpt_file_name)
+    download("https://huggingface.co/BAAI/SegGPT/resolve/main/seggpt_vit_large.pth",pth)
+
+    return pth
+
+def is_dir(pth):
+    return os.path.exists(pth) and os.path.isdir(pth)
+def create_cache(dir=None):
+    if dir == None:
+        dir = os.path.join(os.path.expanduser('~'), ".cache/")
+
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+
+    #make labelup specific path
+    dir = os.path.join(dir, "labelup/")
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+
+    return dir

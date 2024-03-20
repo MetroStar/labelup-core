@@ -9,6 +9,12 @@ SAM is licensed under the Apache 2.0 license [Apache 2.0 license](SAM_LICENSE)
 SegGPT is licensed under the MIT license [MIT license](SegGPT_LICENSE)
 
 # Install from source
+```
+git clone git@github.com:MetroStar/labelup-core.git
+
+pip install -e labelup-core
+
+```
 
 # Build the distribution
 
