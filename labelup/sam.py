@@ -3,7 +3,7 @@ from .utils import download_sam_model, is_dir
 import torch
 import cv2
 import numpy as np
-import os
+
 
 
 class SAMInference:

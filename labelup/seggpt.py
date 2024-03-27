@@ -1,17 +1,16 @@
 import os
-#import uuid
+
 import torch
 import numpy as np
-#from pycocotools import mask as cocomask
+
 from .models_seggpt import seggpt_vit_large_patch16_input896x448
-#from .seggpt_engine import inference_image
+
 from typing import List, Dict, Tuple, Optional, Any
 import torch.nn.functional as F
 import numpy as np
 from PIL import Image
-#from skimage.color import rgb2gray
-#from skimage.measure import shannon_entropy
-import cv2
+
+
 from typing import List, Tuple, Optional, Any, Union
 from .utils import download_seggpt_model, is_dir
 
@@ -34,7 +33,7 @@ class SegGPTInference:
         output_dir (str): Directory to save the output images or videos.
         """
         self.ckpt_path = ckpt_path
-        #TODO install weights if not present
+       
         self.model_name = model # not used, only uses seggpt_vit_large_patch16_input896x448
         self.seg_type = seg_type
         self.device = torch.device(device)
@@ -77,8 +76,7 @@ class SegGPTInference:
         assert all(os.path.exists(img) for img in prompt_mask), f"One or more prompt targets not found"
 
         img_name = os.path.basename(input_image)
-        #out_path = os.path.join(self.output_dir, "output_" + '.'.join(img_name.split('.')[:-1]) + '.png')
-
+        
         masked_image, orig_image, mask = self.inference_image(
             input_image, prompt_image, prompt_mask, threshold
         )
@@ -91,7 +89,7 @@ class SegGPTInference:
 
         )
         '''
-        #coco_output ={}
+        
 
         return  to_boolean_mask(mask)
 
@@ -142,29 +140,9 @@ class SegGPTInference:
         output = y[0, y.shape[1] // 2:, :, :]
         output = torch.clip((output * imagenet_std + imagenet_mean) * 255, 0, 255)
 
-        # Calculate metrics from the masked area of the first result from the batch
-        #pred_metrics = calculate_metrics(output, threshold=threshold)
-        #print("run one image, y", y.numpy())
-        # Convert the mask to binary here. This depends on your model's output.
-        #mask = (y[0, :, :, :] > threshold ).float()  # if y is a probability mask
-        #mask = rgb2gray(mask.numpy())
-        #mask = mask[:, mask.shape[1] // 2:mask.shape[1]]
-        #mask = np.array(Image.fromarray(mask[0]).resize(input_size, Image.BICUBIC))
-        #print("run one image", mask)
-        # Calculate bounding boxes
-        #bounding_boxes = mask_to_bbox(mask)
+        
 
-        # If bounding_boxes is a numpy array, convert it to a list
-        #if isinstance(bounding_boxes, np.ndarray):
-        #   bounding_boxes = bounding_boxes.tolist()
-
-        # Calculate area of mask and normalize
-        #area = np.sum(mask) / (mask.shape[0] * mask.shape[1])
-
-        # Convert to RLE
-        #rle_mask = binary_mask_to_rle(mask)
-
-        return output#, mask, area, pred_metrics
+        return output
 
     def prep_image_prompt(self,input_image_path,  prompt_image_paths, prompt_mask_paths):
         image = Image.open(input_image_path).convert("RGB")

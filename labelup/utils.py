@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from typing import List, Tuple, Optional, Any, Union
+from typing import List,  Any
 import os
 def show_points(coords, labels, ax, marker_size=375):
     pos_points = coords[labels==1]
