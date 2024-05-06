@@ -1,0 +1,15 @@
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python
+  - pytorch-cuda=12.1
+  - torchvision
+  - py-opencv
+  - timm
+  - fairscale
+  - segment-anything
+  - matplotlib
+  - IProgress
+  - jupyter

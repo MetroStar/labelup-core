@@ -29,3 +29,16 @@ and install from wheel
 ```
 pip install dist/labelup-0.1-py3-none-any.whl
 ```
+
+# Or install via conda or mamba
+Update environment.yml with `pytorch-cuda` compatible with your cuda version (pytorch.org)
+```
+git clone git@github.com:MetroStar/labelup-core.git
+
+cd labelup-core
+
+mamba env create -n labelup-core -f environment.yml
+
+mamba activate labelup-core
+
+pip install -e . --no-deps
