@@ -78,13 +78,14 @@ def bi_directional_rank(target_img_dir, prompt_img_paths, prompt_mask_paths,work
             bce = loss(torch.from_numpy(prompt_mask), torch.from_numpy(pmhat))
             bce = bce.item()
 
-
+            iou = eval_iou(prompt_mask, pmhat)
             result_entry={
                 "Ti": img,
                 "Pi": prompt_image,
                 "TmHat": mask,
                 "PmHat": name,
-                "bce": bce
+                "bce": bce,
+                "iou":iou
             }
             results.append(result_entry)
     with open(os.path.join(prompt_pred_mask_dir, "results.json"), 'w') as f:
@@ -92,11 +93,15 @@ def bi_directional_rank(target_img_dir, prompt_img_paths, prompt_mask_paths,work
 
     return os.path.join(prompt_pred_mask_dir, "results.json")
         
-
-def sort_results(results_path):
+def eval_iou(target, prediction):
+    intersection = np.logical_and(target, prediction)
+    union = np.logical_or(target, prediction)
+    iou_score = np.sum(intersection) / np.sum(union)
+    return iou_score
+def sort_results(results_path, metric="bce"): # can also use iou metric
 
     results = json.load(open(results_path,"r"))
-    results.sort(key = lambda x: x["bce"])
+    results.sort(key = lambda x: x[metric])
     return results
 
 def _make_dir(path):

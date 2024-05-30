@@ -1,5 +1,6 @@
 torch
 opencv-python
+opencv-python-headless
 timm
 fairscale
 segment_anything
