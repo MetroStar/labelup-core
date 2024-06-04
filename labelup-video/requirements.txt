@@ -1,0 +1,10 @@
+#cotracker @ git+https://github.com/facebookresearch/co-tracker
+#labelup @ git+https://github.com/MetroStar/labelup-core 
+torch
+torchvision
+segment-anything
+fairscale
+#opencv-python
+#opencv-python-headless
+
+
